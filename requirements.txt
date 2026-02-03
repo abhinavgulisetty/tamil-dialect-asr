@@ -1,0 +1,39 @@
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch
+torchvision
+torchaudio
+Cython
+packaging
+wheel
+setuptools
+# Core Machine Learning & Utilities
+pytorch-lightning
+omegaconf
+hydra-core
+tqdm
+python-dateutil
+huggingface_hub
+wandb
+tensorboard
+# Audio Processing & ASR
+numba
+numpy
+librosa
+soundfile
+scipy
+resampy
+pydub
+lhotse
+jiwer
+kaldiio
+pyannote.metrics
+pyannote.core
+matplotlib
+# Text Processing & Tokenization
+sentencepiece
+transformers
+editdistance
+webdataset
+# Interactive / Notebooks
+ipywidgets
+jupyterlab
