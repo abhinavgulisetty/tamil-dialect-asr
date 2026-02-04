@@ -13,7 +13,7 @@ import evaluate
 
 # 1. Configuration
 MODEL_ID = "vasista22/whisper-tamil-medium"
-TRAIN_JSON = "train_manifest_clean.json"
+TRAIN_JSON = "train_manifest_clean.json"  # Update with actual path
 TEST_JSON = "test_manifest_clean.json"    # Update with actual path
 OUTPUT_DIR = "./whisper-tamil-finetuned"
 
@@ -97,15 +97,18 @@ model.config.suppress_tokens = []
 # 7. Training Arguments
 training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
-    per_device_train_batch_size=8,  # Adjust based on GPU VRAM
-    gradient_accumulation_steps=2,
+    per_device_train_batch_size=64,  # H100 optimization: Increased batch size
+    gradient_accumulation_steps=1,   # H100 optimization: Reduced accumulation steps since batch is large
     learning_rate=1e-5,
     warmup_steps=500,
     max_steps=4000,
     gradient_checkpointing=True,
-    fp16=True,  # Use fp16 if CUDA is available
+    fp16=False,     # H100 optimization: prefer bf16 over fp16
+    bf16=True,      # H100 optimization: Enable BFloat16
+    tf32=True,      # H100 optimization: Enable TensorFloat32
+    dataloader_num_workers=8, # H100 optimization: Increase workers to feed GPU faster
     evaluation_strategy="steps",
-    per_device_eval_batch_size=8,
+    per_device_eval_batch_size=32, # H100 optimization: Increased eval batch size
     predict_with_generate=True,
     generation_max_length=225,
     save_steps=1000,
@@ -136,4 +139,3 @@ if __name__ == "__main__":
     # Save final model and processor
     model.save_pretrained(OUTPUT_DIR)
     processor.save_pretrained(OUTPUT_DIR)
-
