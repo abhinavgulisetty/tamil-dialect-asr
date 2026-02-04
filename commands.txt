@@ -5,5 +5,12 @@ python NeMo/examples/asr/speech_to_text_finetune.py init_from_nemo_model="indicc
 
 python NeMo/examples/asr/asr_hybrid_transducer_ctc/speech_to_text_hybrid_rnnt_ctc_bpe.py init_from_nemo_model="indicconformer_stt_ta_hybrid_rnnt_large.nemo" model.train_ds.manifest_filepath="train_manifest_clean.json" model.validation_ds.manifest_filepath="test_manifest_clean.json" model.train_ds.batch_size=32 model.train_ds.num_workers=8 model.optim.lr=1e-5 trainer.devices=1 trainer.max_epochs=50 exp_manager.name="Tamil_Hybrid_Finetune" exp_manager.create_wandb_logger=False
 
+pip uninstall torch torchaudio torchcodec transformers datasets evaluate jiwer accelerate soundfile tensorboard -y
+pip uninstall torch torchaudio -y  # Run twice as recommended for PyTorch cleanup
+pip cache purge  # Clears pip cache to avoid partial downloads
 
-pip install torch torchaudio torchcodec transformers datasets evaluate jiwer accelerate soundfile tensorboard
+pip install torch torchaudio --index-url https://download.pytorch.org/whl/cpu  # Or your CUDA variant
+pip install torchcodec
+pip install transformers datasets evaluate jiwer accelerate soundfile tensorboard
+
+python -c "from torchcodec.decoders import VideoDecoder; import torch; print('Success')"
