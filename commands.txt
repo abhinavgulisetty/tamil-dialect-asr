@@ -4,3 +4,6 @@ python NeMo/examples/asr/speech_to_text_finetune.py init_from_nemo_model="indicc
 
 
 python NeMo/examples/asr/asr_hybrid_transducer_ctc/speech_to_text_hybrid_rnnt_ctc_bpe.py init_from_nemo_model="indicconformer_stt_ta_hybrid_rnnt_large.nemo" model.train_ds.manifest_filepath="train_manifest_clean.json" model.validation_ds.manifest_filepath="test_manifest_clean.json" model.train_ds.batch_size=32 model.train_ds.num_workers=8 model.optim.lr=1e-5 trainer.devices=1 trainer.max_epochs=50 exp_manager.name="Tamil_Hybrid_Finetune" exp_manager.create_wandb_logger=False
+
+
+pip install torch torchaudio torchcodec transformers datasets evaluate jiwer accelerate soundfile tensorboard
