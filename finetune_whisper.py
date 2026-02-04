@@ -13,8 +13,8 @@ import evaluate
 
 # 1. Configuration
 MODEL_ID = "vasista22/whisper-tamil-medium"
-TRAIN_JSON = "path/to/train.json"  # Update with actual path
-TEST_JSON = "path/to/test.json"    # Update with actual path
+TRAIN_JSON = "train_manifest_clean.json"
+TEST_JSON = "test_manifest_clean.json"    # Update with actual path
 OUTPUT_DIR = "./whisper-tamil-finetuned"
 
 # 2. Load Dataset
@@ -136,3 +136,4 @@ if __name__ == "__main__":
     # Save final model and processor
     model.save_pretrained(OUTPUT_DIR)
     processor.save_pretrained(OUTPUT_DIR)
+
