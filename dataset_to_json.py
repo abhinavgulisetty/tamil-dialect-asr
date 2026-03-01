@@ -1,10 +1,27 @@
+import argparse
 import os
 import json
 import soundfile as sf
 
+
 def main():
-    root_dir = "/home/zypher/NeMo/asl/Dataset"
-    output_file = "dataset_manifest.json"
+    parser = argparse.ArgumentParser(
+        description="Build a JSON manifest from the Tamil Dialect Speech Dataset."
+    )
+    parser.add_argument(
+        "--data-root",
+        default="Dataset",
+        help="Root directory of the dataset (default: Dataset).",
+    )
+    parser.add_argument(
+        "--output",
+        default="dataset_manifest.json",
+        help="Output manifest file (default: dataset_manifest.json).",
+    )
+    args = parser.parse_args()
+
+    root_dir = args.data_root
+    output_file = args.output
     manifest = []
 
     if not os.path.exists(root_dir):
